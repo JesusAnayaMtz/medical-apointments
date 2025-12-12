@@ -1,11 +1,13 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserRole } from "../enums/user-role.enum";
-import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 
 @Entity('users')
 export class UsersEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column({ unique: false, nullable: false, type: 'varchar', length: 255 })
+    name: string;
 
     @Column({ unique: false, nullable: false, type: 'varchar', length: 255 })
     email: string;
@@ -21,4 +23,7 @@ export class UsersEntity {
 
     @Column({ nullable: false, type: 'enum', enum: UserRole })
     role: UserRole;
+
+    @Column({ nullable: false, type: 'boolean', default: true })
+    isActive: boolean;
 }
